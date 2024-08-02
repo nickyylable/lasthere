@@ -911,12 +911,12 @@
             if (document.getElementById("device-output").textContent.trim() === "Устройство не определено") {
                 showModal();
             } else {
-                if (lastGameTime && now - lastGameTime < 600000) {
+                const now = new Date().getTime();
+                const lastGameTime = localStorage.getItem('lastGameTime');
+                             if (lastGameTime && now - lastGameTime < 600000) {
                     showMiniModal();
                     return;
                 }
-                const now = new Date().getTime();
-                const lastGameTime = localStorage.getItem('lastGameTime');
                 var randomNumber = Math.floor(Math.random() * 4) + 1;
                 var probability = Math.floor(Math.random() * 12) + 85;
                 localStorage.setItem('lastGameTime', now);
