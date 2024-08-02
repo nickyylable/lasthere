@@ -709,39 +709,49 @@
             var i, tabcontent, tablinks;
             var miniModal = document.getElementById('miniModal');
             var aboutGif = document.getElementById('aboutGif');
-
+        
+            // Скрываем все вкладки и удаляем класс 'active'
             tabcontent = document.getElementsByClassName("tabcontent");
             for (i = 0; i < tabcontent.length; i++) {
                 tabcontent[i].style.display = "none";
                 tabcontent[i].classList.remove('active');
             }
+        
+            // Удаляем класс 'active' у всех кнопок
             tablinks = document.getElementsByClassName("tablinks");
             for (i = 0; i < tablinks.length; i++) {
                 tablinks[i].classList.remove("active");
             }
+        
+            // Показываем текущую вкладку и добавляем класс 'active'
             document.getElementById(tabName).style.display = "flex";
             document.getElementById(tabName).classList.add('active');
             button.classList.add("active");
-
+        
+            // Скроллим страницу
             if (tabName === 'Games') {
                 window.scrollTo({ top: 45, behavior: 'smooth' });
             } else {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
-
+        
+            // Обрабатываем вкладку 'About'
             if (tabName === 'About') {
-                var newSrc = aboutGif.getAttribute('src').split('?')[0] + '?rand=' + new Date().getTime();
-                aboutGif.src = newSrc;
+                var newAboutGif = aboutGif.cloneNode(true);
+                aboutGif.parentNode.replaceChild(newAboutGif, aboutGif);
+                aboutGif = newAboutGif; // обновляем ссылку на новый элемент
                 aboutAudio.play();
             } else {
                 aboutAudio.pause();
                 aboutAudio.currentTime = 0;
             }
-
+        
+            // Обрабатываем вкладку 'Contact'
             if (tabName === 'Contact') {
                 miniModal.style.display = 'none';
             }
         }
+
 
 
         const canvas = document.getElementById('particleCanvas');
